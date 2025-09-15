@@ -1,0 +1,95 @@
+{
+    "appName": "AI Career Mentor",
+    "platform": "React Native (Expo Go)",
+    "authentication": "Firebase Authentication",
+    "screens": [
+      {
+        "name": "SplashScreen",
+        "components": [
+          { "type": "Image", "props": { "source": "logo.png", "style": "centered" } },
+          { "type": "Text", "props": { "text": "AI Career Mentor", "style": "title" } }
+        ],
+        "navigation": { "nextScreen": "AuthScreen" }
+      },
+      {
+        "name": "AuthScreen",
+        "components": [
+          { "type": "TextInput", "props": { "placeholder": "Email", "keyboardType": "email-address" } },
+          { "type": "TextInput", "props": { "placeholder": "Password", "secureTextEntry": true } },
+          { "type": "Button", "props": { "text": "Login", "onPress": "firebaseLogin()" } },
+          { "type": "Button", "props": { "text": "Sign Up", "onPress": "firebaseSignUp()" } },
+          { "type": "Button", "props": { "text": "Forgot Password?", "onPress": "firebaseResetPassword()" } }
+        ]
+      },
+      {
+        "name": "OnboardingScreen",
+        "components": [
+          { "type": "Slider", "props": { "pages": 3, "content": ["Enter Interests", "Enter Skills", "Enter Grades"] } },
+          { "type": "Button", "props": { "text": "Continue", "onPress": "navigateTo('ProfileSetup')" } }
+        ]
+      },
+      {
+        "name": "ProfileSetup",
+        "components": [
+          { "type": "TextInput", "props": { "placeholder": "Enter Name" } },
+          { "type": "Dropdown", "props": { "placeholder": "Select Interests", "options": ["Coding","Design","Business","Science","Arts"] } },
+          { "type": "MultiSelect", "props": { "placeholder": "Select Skills", "options": ["JavaScript","Python","React","Excel","Presentation"] } },
+          { "type": "Button", "props": { "text": "Save Profile", "onPress": "saveProfileToFirebase()" } }
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "components": [
+          { "type": "Greeting", "props": { "text": "Hello, [UserName]" } },
+          { "type": "Card", "props": { "title": "Recommended Career Paths", "dataSource": "AIRecommendations.careers" } },
+          { "type": "Card", "props": { "title": "Recommended Courses", "dataSource": "AIRecommendations.courses" } },
+          { "type": "Card", "props": { "title": "Skill Roadmap", "dataSource": "AIRecommendations.skills" } },
+          { "type": "Button", "props": { "text": "Chat with Mentor", "onPress": "navigateTo('ChatBotScreen')" } }
+        ]
+      },
+      {
+        "name": "ChatBotScreen",
+        "components": [
+          { "type": "MessageList", "props": { "dataSource": "chatMessages" } },
+          { "type": "TextInput", "props": { "placeholder": "Type your question...", "onSubmit": "sendMessageToChatBot()" } },
+          { "type": "Button", "props": { "text": "Send", "onPress": "sendMessageToChatBot()" } }
+        ]
+      },
+      {
+        "name": "ProgressScreen",
+        "components": [
+          { "type": "ProgressBar", "props": { "dataSource": "userProgress" } },
+          { "type": "BadgeList", "props": { "dataSource": "earnedBadges" } },
+          { "type": "MilestoneList", "props": { "dataSource": "milestones" } }
+        ]
+      },
+      {
+        "name": "SettingsScreen",
+        "components": [
+          { "type": "Toggle", "props": { "label": "Dark Mode", "state": "darkMode" } },
+          { "type": "Button", "props": { "text": "Logout", "onPress": "firebaseLogout()" } },
+          { "type": "Button", "props": { "text": "Delete Account", "onPress": "deleteFirebaseAccount()" } }
+        ]
+      }
+    ],
+    "navigation": {
+      "type": "StackNavigator",
+      "routes": [
+        "SplashScreen",
+        "AuthScreen",
+        "OnboardingScreen",
+        "ProfileSetup",
+        "Dashboard",
+        "ChatBotScreen",
+        "ProgressScreen",
+        "SettingsScreen"
+      ]
+    },
+    "styles": {
+      "title": { "fontSize": 28, "fontWeight": "bold", "textAlign": "center" },
+      "centered": { "alignItems": "center", "justifyContent": "center" },
+      "button": { "backgroundColor": "#4CAF50", "padding": 12, "borderRadius": 8, "color": "#fff" },
+      "input": { "borderWidth": 1, "borderColor": "#ccc", "padding": 10, "borderRadius": 6 }
+    }
+  }
+  
